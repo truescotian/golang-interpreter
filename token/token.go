@@ -12,8 +12,8 @@ const (
 	EOF     = "EOF"
 
 	// Identifiers + literals
-	IDENT = "IDENT" // add, foobar, x, y, ...
-	INT   = "INT"   // 1343456
+	IDENTIFIER = "IDENTIFIER" // add, foobar, x, y, ...
+	INT        = "INT"        // 1343456
 
 	// Operators
 	ASSIGN = "="
@@ -32,3 +32,17 @@ const (
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
 )
+
+var keywords = map[string]TokenType{
+	"fn":  FUNCTION,
+	"let": LET,
+}
+
+// LookupIdentifier checks the keywords table to see if the identifier argument
+// is in fact a keyword. If it is, return the TokenType IDENTIFIER.
+func LookupIdentifier(identifier string) TokenType {
+	if tok, ok := keywords[identifier]; ok {
+		return tok
+	}
+	return IDENTIFIER
+}
